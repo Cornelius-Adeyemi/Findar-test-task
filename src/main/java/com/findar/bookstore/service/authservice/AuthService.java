@@ -104,6 +104,10 @@ public class AuthService {
 
     public Object registerAdmin(SignupRequest signupRequest) throws ZeusException {
 
+        if(signupRequest.getAdminPassCode() == null){
+            throw new ZeusException(HttpStatus.BAD_REQUEST, HttpStatus.BAD_REQUEST.toString(),"Passcode is required");
+        }
+
         log.info("-----register-- admin--");
         byte[] decodedBytes = Base64.getDecoder().decode(adminPasscode);
         String passcode = new String(decodedBytes);

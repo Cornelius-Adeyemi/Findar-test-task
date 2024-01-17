@@ -33,6 +33,8 @@ To run this project on your local, please set the following environment variable
 - [ ] get a book details
 - [ ] get list of book details
 
+- to register  a user with the USER role, passcode is not required 
+
 
 ## Testing
 All endpoints requires access token except the login/register endpoints
