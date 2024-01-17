@@ -35,4 +35,6 @@ To run this project on your local, please set the following environment variable
 
 
 ## Testing
+All endpoints requires access token except the login/register endpoints
+
 To test the endpoints visit swagger UI - http://localhost:8080/swagger-ui/index.html
