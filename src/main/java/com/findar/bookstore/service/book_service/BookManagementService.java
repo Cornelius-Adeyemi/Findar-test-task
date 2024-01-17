@@ -35,6 +35,8 @@ public class BookManagementService {
 
  private final BorrowTableRepo borrowTableRepo;
 
+ private final GetLoginUser getLoginUser;
+
     /**
      * method to add book to book table. check DTO structure through swagger UI
      * @param bookRequest
@@ -43,7 +45,7 @@ public class BookManagementService {
      */
     public Object createBook(BookRequest bookRequest) throws ZeusException {
       //get login user
-        RootUser principal = GetLoginUser.checkForCurrentUserId();
+        RootUser principal = getLoginUser.checkForCurrentUserId();
 
         //check if user has admin role
         if(!principal.getRole().toString().equals(Role.ADMIN.toString())){
@@ -87,7 +89,7 @@ public class BookManagementService {
 
     public Object deleteBook(String bookId ) throws ZeusException {
 
-        RootUser principal = GetLoginUser.checkForCurrentUserId();
+        RootUser principal = getLoginUser.checkForCurrentUserId();
        //check if user has the the admin role
         if(!principal.getRole().toString().equals(Role.ADMIN.toString())){
             throw new ZeusException(HttpStatus.UNAUTHORIZED, HttpStatus.UNAUTHORIZED.toString(), "You don't have access to this action");
@@ -111,7 +113,7 @@ public class BookManagementService {
 
     public Object updateBook(String bookId, UpdateBookDTO updateBookDTO ) throws ZeusException {
 
-        RootUser principal = GetLoginUser.checkForCurrentUserId();
+        RootUser principal = getLoginUser.checkForCurrentUserId();
        //check if user has admin role
         if(!principal.getRole().toString().equals(Role.ADMIN.toString())){
             throw new ZeusException(HttpStatus.UNAUTHORIZED, HttpStatus.UNAUTHORIZED.toString(), "You don't have access to this action");
@@ -186,7 +188,7 @@ public class BookManagementService {
 
     public Object borrowBook(String bookId) throws ZeusException {
        //get login user
-        RootUser principal = GetLoginUser.checkForCurrentUserId();
+        RootUser principal = getLoginUser.checkForCurrentUserId();
 
         //check if user has unreturned book
         Optional<BorrowedTable> borrowedTable = borrowTableRepo.findByEmailAndBorrowedStatus(principal.getEmail(), BorrowedStatus.NOT_RETURN);
@@ -242,7 +244,7 @@ public class BookManagementService {
     @Transactional
     public Object returnBook(String bookId) throws ZeusException {
        //get login user
-        RootUser principal = GetLoginUser.checkForCurrentUserId();
+        RootUser principal = getLoginUser.checkForCurrentUserId();
         //check if user has an unreturn book with that Id
         Optional<BorrowedTable> borrowedTable = borrowTableRepo.findByEmailAndBookIdAndBorrowedStatus(principal.getEmail(), bookId, BorrowedStatus.NOT_RETURN);
 

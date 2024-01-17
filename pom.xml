@@ -74,6 +74,8 @@
 			<artifactId>spring-security-test</artifactId>
 			<scope>test</scope>
 		</dependency>
+		<!-- In your Maven POM file -->
+
 	</dependencies>
 
 	<build>
